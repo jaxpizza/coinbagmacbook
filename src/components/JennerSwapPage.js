@@ -4,7 +4,7 @@ import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
-const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf'; // Replace with your Infura project ID
+const CLOUD_FLARE_URL = 'https://cloudflare-eth.com';
 
 const UPDATE_INTERVAL = 10000; // 10 seconds
 
@@ -53,7 +53,7 @@ const JennerSwapPage = () => {
     let isMounted = true;
     const initProvider = async () => {
       try {
-        const newProvider = new ethers.providers.JsonRpcProvider(INFURA_URL);
+        const newProvider = new ethers.providers.JsonRpcProvider(CLOUD_FLARE_URL);
         await newProvider.ready;
         if (isMounted) {
           setProvider(newProvider);
@@ -94,7 +94,7 @@ const JennerSwapPage = () => {
             theme={theme}
             width="100%"
             provider={provider}
-            jsonRpcEndpoint={INFURA_URL}
+            jsonRpcEndpoint={CLOUD_FLARE_URL}
             tokenList="/api/tokens"
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
