@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SwapWidget, Theme } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
-const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf'; // Replace with your Infura project ID
+const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf';
 
 const JennerSwapPage = () => {
   const [provider, setProvider] = useState(null);
+  const [lastFetchTime, setLastFetchTime] = useState(0);
 
   useEffect(() => {
     const initProvider = async () => {
@@ -42,7 +43,7 @@ const JennerSwapPage = () => {
       symbol: 'JENNER',
       decimals: 18,
       chainId: 1,
-      logoURI: 'https://example.com/jenner-logo.png' // Replace with actual logo URL
+      logoURI: 'https://example.com/jenner-logo.png'
     },
     {
       name: 'Wrapped Ether',
@@ -61,6 +62,20 @@ const JennerSwapPage = () => {
       logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png'
     }
   ];
+
+  const debouncedFetcher = useCallback(async (url, options) => {
+    const now = Date.now();
+    if (now - lastFetchTime < 10000) {
+      console.log('Throttled request');
+      return null;
+    }
+    setLastFetchTime(now);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  }, [lastFetchTime]);
 
   if (!provider) {
     return <div className="text-white text-center">Loading...</div>;
@@ -82,6 +97,8 @@ const JennerSwapPage = () => {
             convenienceFee={0}
             convenienceFeeRecipient={JENNER_TOKEN_ADDRESS}
             locale="en-US"
+            routerUrl="https://api.uniswap.org/v1/"
+            fetcher={debouncedFetcher}
           />
         </div>
       </div>
