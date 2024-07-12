@@ -25,16 +25,7 @@ const JennerSwapPage = () => {
         <SwapWidget
           theme={theme}
           width="100%"
-          tokenList={[
-            {
-              address: JENNER_TOKEN_ADDRESS,
-              chainId: 1, // Assuming Ethereum mainnet
-              name: 'Jenner',
-              symbol: 'JENNER',
-              decimals: 18, // Assuming standard ERC20 decimals
-              logoURI: 'https://example.com/jenner-logo.png' // Replace with actual logo URL
-            }
-          ]}
+          tokenList={[JENNER_TOKEN_ADDRESS]}
           defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
         />
       </div>
