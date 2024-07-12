@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { SwapWidget, Theme } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
+import axios from 'axios';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf';
@@ -70,11 +71,17 @@ const JennerSwapPage = () => {
       return null;
     }
     setLastFetchTime(now);
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      const response = await axios({
+        url: '/.netlify/functions/proxy',
+        method: 'POST',
+        data: { url, options }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error in debouncedFetcher:', error);
+      throw error;
     }
-    return response.json();
   }, [lastFetchTime]);
 
   if (!provider) {
