@@ -6,18 +6,15 @@ import { ethers } from 'ethers';
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 
 const JennerSwapPage = () => {
-  const [error, setError] = useState(null);
   const [provider, setProvider] = useState(null);
 
   useEffect(() => {
     const initProvider = async () => {
-      try {
-        const newProvider = new ethers.providers.JsonRpcProvider('https://cloudflare-eth.com');
-        await newProvider.ready;
-        setProvider(newProvider);
-      } catch (err) {
-        console.error('Failed to initialize provider:', err);
-        setError('Failed to connect to Ethereum network. Please try again later.');
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        setProvider(provider);
+      } else {
+        console.error('No Web3 provider detected');
       }
     };
 
@@ -37,17 +34,8 @@ const JennerSwapPage = () => {
     borderRadius: 0.5,
   };
 
-  const handleError = (error) => {
-    console.error('Swap widget error:', error);
-    setError('An error occurred while loading the swap widget. Please try again later.');
-  };
-
-  if (error) {
-    return <div className="text-red-500 text-center">{error}</div>;
-  }
-
   if (!provider) {
-    return <div className="text-white text-center">Loading...</div>;
+    return <div className="text-white text-center">Please connect your wallet to use the swap feature.</div>;
   }
 
   return (
@@ -58,20 +46,11 @@ const JennerSwapPage = () => {
           <SwapWidget
             theme={theme}
             width="100%"
-            tokenList={[
-              {
-                address: JENNER_TOKEN_ADDRESS,
-                chainId: 1,
-                name: 'Jenner',
-                symbol: 'JENNER',
-                decimals: 18,
-                logoURI: 'https://example.com/jenner-logo.png'
-              }
-            ]}
-            defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
-            onError={handleError}
+            jsonRpcEndpoint={provider.connection.url}
+            tokenList="https://tokens.coingecko.com/uniswap/all.json"
             provider={provider}
-            locale="en-US"
+            defaultInputTokenAddress="NATIVE"
+            defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
           />
         </div>
       </div>
