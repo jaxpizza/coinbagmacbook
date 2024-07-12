@@ -35,6 +35,15 @@ const JennerSwapPage = () => {
     borderRadius: 0.5,
   };
 
+  const jennerToken = {
+    name: 'Jenner',
+    address: JENNER_TOKEN_ADDRESS,
+    symbol: 'JENNER',
+    decimals: 18,
+    chainId: 1,
+    logoURI: 'https://example.com/jenner-logo.png' // Replace with actual logo URL
+  };
+
   if (!provider) {
     return <div className="text-white text-center">Loading...</div>;
   }
@@ -49,7 +58,7 @@ const JennerSwapPage = () => {
             width="100%"
             provider={provider}
             jsonRpcEndpoint={INFURA_URL}
-            tokenList="/api/tokens.uniswap.org"
+            tokenList={[jennerToken]}
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             convenienceFee={0}
