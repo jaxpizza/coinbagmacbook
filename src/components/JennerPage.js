@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { formatNumber, formatPercentage } from '../utils/formatters';
 
@@ -77,6 +78,14 @@ const JennerPage = () => {
             {formatPercentage(tokenData.percentChange7d)}
           </p>
         </div>
+      </div>
+      <div className="mt-6">
+        <Link
+          to="/jenner/swap"
+          className="w-full bg-teal-500 text-white py-3 px-4 rounded-lg text-center font-semibold hover:bg-teal-600 transition-colors"
+        >
+          Swap Jenner Token
+        </Link>
       </div>
     </div>
   );
