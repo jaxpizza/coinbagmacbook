@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
-const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf'; 
+const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf'; // Replace with your Infura project ID
 
 const JennerSwapPage = () => {
+  const [provider, setProvider] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const initProvider = async () => {
+      try {
+        const newProvider = new ethers.providers.JsonRpcProvider(INFURA_URL);
+        await newProvider.ready;
+        if (isMounted) {
+          setProvider(newProvider);
+        }
+      } catch (error) {
+        console.error('Failed to initialize provider:', error);
+      }
+    };
+    initProvider();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const theme = {
     primary: '#1FC7D4',
     secondary: '#7645D9',
@@ -20,7 +41,9 @@ const JennerSwapPage = () => {
     borderRadius: 0.5,
   };
 
-  const provider = new ethers.providers.JsonRpcProvider(INFURA_URL);
+  if (!provider) {
+    return <div className="text-white text-center">Loading...</div>;
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900 p-4">
@@ -32,7 +55,7 @@ const JennerSwapPage = () => {
             width="100%"
             provider={provider}
             jsonRpcEndpoint={INFURA_URL}
-            tokenList="https://tokens.coingecko.com/uniswap/all.json"
+            tokenList="/api/tokens"
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             convenienceFee={0}
