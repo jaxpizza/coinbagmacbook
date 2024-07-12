@@ -35,14 +35,32 @@ const JennerSwapPage = () => {
     borderRadius: 0.5,
   };
 
-  const jennerToken = {
-    name: 'Jenner',
-    address: JENNER_TOKEN_ADDRESS,
-    symbol: 'JENNER',
-    decimals: 18,
-    chainId: 1,
-    logoURI: 'https://example.com/jenner-logo.png' // Replace with actual logo URL
-  };
+  const tokenList = [
+    {
+      name: 'Jenner',
+      address: JENNER_TOKEN_ADDRESS,
+      symbol: 'JENNER',
+      decimals: 18,
+      chainId: 1,
+      logoURI: 'https://example.com/jenner-logo.png' // Replace with actual logo URL
+    },
+    {
+      name: 'Wrapped Ether',
+      address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      symbol: 'WETH',
+      decimals: 18,
+      chainId: 1,
+      logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png'
+    },
+    {
+      name: 'USD Coin',
+      address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+      symbol: 'USDC',
+      decimals: 6,
+      chainId: 1,
+      logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png'
+    }
+  ];
 
   if (!provider) {
     return <div className="text-white text-center">Loading...</div>;
@@ -58,7 +76,7 @@ const JennerSwapPage = () => {
             width="100%"
             provider={provider}
             jsonRpcEndpoint={INFURA_URL}
-            tokenList={[jennerToken]}
+            tokenList={tokenList}
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             convenienceFee={0}
