@@ -71,6 +71,7 @@ const JennerSwapPage = () => {
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             onError={handleError}
             provider={provider}
+            locale="en-US"
           />
         </div>
       </div>
