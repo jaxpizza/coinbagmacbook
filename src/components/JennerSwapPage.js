@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SwapWidget, Theme, I18nProvider } from '@uniswap/widgets';
+import { SwapWidget, Theme } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
 
@@ -44,19 +44,18 @@ const JennerSwapPage = () => {
       <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full">
         <h2 className="text-2xl font-semibold text-teal-400 mb-6 text-center">Swap Jenner Token</h2>
         <div id="swap-widget-container">
-          <I18nProvider locale="en-US">
-            <SwapWidget
-              theme={theme}
-              width="100%"
-              provider={provider}
-              jsonRpcEndpoint={CLOUD_FLARE_URL}
-              tokenList="/api/tokens"
-              defaultInputTokenAddress="NATIVE"
-              defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
-              convenienceFee={0}
-              convenienceFeeRecipient={JENNER_TOKEN_ADDRESS}
-            />
-          </I18nProvider>
+          <SwapWidget
+            theme={theme}
+            width="100%"
+            provider={provider}
+            jsonRpcEndpoint={CLOUD_FLARE_URL}
+            tokenList="https://gateway.ipfs.io/ipns/tokens.uniswap.org"
+            defaultInputTokenAddress="NATIVE"
+            defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
+            convenienceFee={0}
+            convenienceFeeRecipient={JENNER_TOKEN_ADDRESS}
+            locale="en-US"
+          />
         </div>
       </div>
     </div>
