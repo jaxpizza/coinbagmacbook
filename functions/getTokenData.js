@@ -2,7 +2,7 @@ const axios = require('axios');
 
 exports.handler = async function(event, context) {
   const CMC_API_URL = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
-  const CMC_API_KEY = process.env.CMC_API_KEY;
+  const CMC_API_KEY = process.env.REACT_APP_CMC_API_KEY;
   const JENNER_ID = '31798';
 
   try {
@@ -33,6 +33,7 @@ exports.handler = async function(event, context) {
       body: JSON.stringify(formattedData)
     };
   } catch (error) {
+    console.error('Error fetching token data:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed to fetch token data' })
