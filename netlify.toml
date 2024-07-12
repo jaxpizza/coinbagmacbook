@@ -18,4 +18,5 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    Content-Security-Policy = "default-src 'self'; connect-src 'self' https://api.coinmarketcap.com https://api.uniswap.org https://*.infura.io wss://relay.walletconnect.com wss://relay.walletconnect.org https://*.alchemyapi.io https://cloudflare-ipfs.com https://*.uniswap.org https://tokens.coingecko.com https://api.coingecko.com https://verify.walletconnect.com https://verify.walletconnect.org https://explorer-api.walletconnect.com https://cloudflare-eth.com https://gateway.ipfs.io; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;"
     Access-Control-Allow-Origin = "*"
