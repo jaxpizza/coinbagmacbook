@@ -4,6 +4,7 @@ import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
+const JENNER_PAIR_ADDRESS = '0x8588f0c49849c011d5b5e3318bb0d1fb8534266b';
 const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf';
 
 const JennerSwapPage = () => {
@@ -53,6 +54,14 @@ const JennerSwapPage = () => {
     );
   }
 
+  const jennerToken = {
+    address: JENNER_TOKEN_ADDRESS,
+    chainId: 1,
+    symbol: 'JENNER',
+    decimals: 18,
+    name: 'Jenner Token'
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900 p-4">
       <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full">
@@ -62,7 +71,7 @@ const JennerSwapPage = () => {
             provider={provider}
             jsonRpcEndpoint={INFURA_URL}
             width="100%"
-            tokenList={[JENNER_TOKEN_ADDRESS]}
+            tokenList={[jennerToken]}
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             onError={handleError}
