@@ -4,6 +4,7 @@ import '@uniswap/widgets/fonts.css';
 import { AlchemyProvider } from '@ethersproject/providers';
 import { Pool } from '@uniswap/v3-sdk';
 import { Token } from '@uniswap/sdk-core';
+import { ethers } from 'ethers';  // Add this import
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const JENNER_PAIR_ADDRESS = '0x8588f0c49849c011d5b5e3318bb0d1fb8534266b';
