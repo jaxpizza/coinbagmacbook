@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
-import { ethers } from 'ethers';
+import { AlchemyProvider } from '@ethersproject/providers';
 import { Pool } from '@uniswap/v3-sdk';
 import { Token } from '@uniswap/sdk-core';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const JENNER_PAIR_ADDRESS = '0x8588f0c49849c011d5b5e3318bb0d1fb8534266b';
 const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
-const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63bf';
+const ALCHEMY_API_KEY = process.env.REACT_APP_ALCHEMY_API_KEY;
+const ALCHEMY_URL = process.env.REACT_APP_ALCHEMY_URL;
 
 const JennerSwapPage = () => {
   const [provider, setProvider] = useState(null);
@@ -20,7 +21,7 @@ const JennerSwapPage = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const newProvider = new ethers.providers.JsonRpcProvider(INFURA_URL);
+      const newProvider = new AlchemyProvider('mainnet', ALCHEMY_API_KEY);
       await newProvider.ready;
       setProvider(newProvider);
     } catch (error) {
@@ -55,9 +56,9 @@ const JennerSwapPage = () => {
           const newPool = new Pool(
             jennerToken,
             wethToken,
-            3000, // Assuming 0.3% fee, adjust if different
+            3000,
             slot0.sqrtPriceX96.toString(),
-            '1', // Liquidity, not important for the widget
+            '1',
             slot0.tick
           );
 
@@ -110,7 +111,7 @@ const JennerSwapPage = () => {
         <div id="swap-widget-container">
           <SwapWidget
             provider={provider}
-            jsonRpcEndpoint={INFURA_URL}
+            jsonRpcEndpoint={ALCHEMY_URL}
             width="100%"
             tokenList={[jennerToken]}
             defaultInputTokenAddress="NATIVE"
