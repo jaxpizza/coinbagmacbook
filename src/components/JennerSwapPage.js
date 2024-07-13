@@ -6,9 +6,6 @@ import { Pool } from '@uniswap/v3-sdk';
 import { Token } from '@uniswap/sdk-core';
 import { ethers } from 'ethers';
 
-// Import the English language
-import { en } from '@uniswap/widgets'
-
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const JENNER_PAIR_ADDRESS = '0x8588f0c49849c011d5b5e3318bb0d1fb8534266b';
 const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
@@ -122,7 +119,6 @@ const JennerSwapPage = () => {
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             onError={handleError}
             pools={pool ? [pool] : undefined}
-            locale={en}
             theme={Theme.DARK}
           />
         </div>
