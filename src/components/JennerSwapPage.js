@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { ethers } from 'ethers';
@@ -8,22 +8,49 @@ const INFURA_URL = 'https://mainnet.infura.io/v3/74a98635df5441ecb1c980e3aa9c63b
 
 const JennerSwapPage = () => {
   const [provider, setProvider] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const initProvider = async () => {
-      try {
-        const newProvider = new ethers.providers.JsonRpcProvider(INFURA_URL);
-        await newProvider.ready;
-        setProvider(newProvider);
-      } catch (error) {
-        console.error('Failed to initialize provider:', error);
-      }
-    };
-    initProvider();
+  const initProvider = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const newProvider = new ethers.providers.JsonRpcProvider(INFURA_URL);
+      await newProvider.ready;
+      setProvider(newProvider);
+    } catch (error) {
+      console.error('Failed to initialize provider:', error);
+      setError('Failed to connect to Ethereum network. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
-  if (!provider) {
-    return <div className="text-white text-center">Loading...</div>;
+  useEffect(() => {
+    initProvider();
+  }, [initProvider]);
+
+  const handleError = useCallback((error) => {
+    console.error('Swap Widget Error:', error);
+    setError('An error occurred while processing the swap. Please try again.');
+  }, []);
+
+  if (isLoading) {
+    return <div className="text-white text-center">Loading Swap Widget...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center">
+        {error}
+        <button 
+          onClick={initProvider} 
+          className="mt-4 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Retry Connection
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -34,9 +61,11 @@ const JennerSwapPage = () => {
           <SwapWidget
             provider={provider}
             jsonRpcEndpoint={INFURA_URL}
+            width="100%"
             tokenList={[JENNER_TOKEN_ADDRESS]}
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
+            onError={handleError}
           />
         </div>
       </div>
