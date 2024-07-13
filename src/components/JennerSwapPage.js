@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SwapWidget, Theme } from '@uniswap/widgets';
+import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { AlchemyProvider } from '@ethersproject/providers';
 import { Pool } from '@uniswap/v3-sdk';
@@ -119,7 +119,6 @@ const JennerSwapPage = () => {
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             onError={handleError}
             pools={pool ? [pool] : undefined}
-            theme={Theme.DARK}
           />
         </div>
       </div>
