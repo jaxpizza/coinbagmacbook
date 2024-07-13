@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SwapWidget } from '@uniswap/widgets';
+import { SwapWidget, Theme } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { AlchemyProvider } from '@ethersproject/providers';
 import { Pool } from '@uniswap/v3-sdk';
 import { Token } from '@uniswap/sdk-core';
-import { ethers } from 'ethers';  // Add this import
+import { ethers } from 'ethers';
+
+// Import the English language
+import { en } from '@uniswap/widgets'
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const JENNER_PAIR_ADDRESS = '0x8588f0c49849c011d5b5e3318bb0d1fb8534266b';
@@ -119,6 +122,8 @@ const JennerSwapPage = () => {
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             onError={handleError}
             pools={pool ? [pool] : undefined}
+            locale={en}
+            theme={Theme.DARK}
           />
         </div>
       </div>
