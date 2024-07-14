@@ -2,7 +2,6 @@
   "name": "coinbag-terminal",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8545",
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -25,7 +24,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "CI=false react-app-rewired build",
+    "build": "CI=false react-app-rewired build && npm run build:function",
+    "build:function": "netlify-lambda build netlify/functions",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "start:netlify": "netlify dev"
@@ -56,6 +56,7 @@
     "crypto-browserify": "^3.12.0",
     "https-browserify": "^1.0.0",
     "init": "^0.1.2",
+    "netlify-lambda": "^2.0.15",
     "npx": "^10.2.2",
     "null-loader": "^4.0.1",
     "os-browserify": "^0.3.0",

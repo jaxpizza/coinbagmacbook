@@ -59,6 +59,7 @@ const JennerSwapPage = () => {
             defaultInputTokenAddress="NATIVE"
             defaultOutputTokenAddress={JENNER_TOKEN_ADDRESS}
             onError={handleError}
+            locale="en-US"
             theme={{
               primary: '#FFF',
               secondary: '#A9A9A9',

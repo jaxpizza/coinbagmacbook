@@ -8,6 +8,13 @@
   to = "/index.html"
   status = 200
 
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.uniswap.org/:splat"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
 [functions]
   node_bundler = "esbuild"
 
@@ -18,5 +25,5 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.uniswap.org https://*.infura.io wss://mainnet.infura.io https://cloudflare-ipfs.com https://*.uniswap.org https://api.coingecko.com https://raw.githubusercontent.com https://cloudflare-eth.com https://eth-mainnet.g.alchemy.com https://*.alchemyapi.io;"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.uniswap.org https://*.infura.io wss://mainnet.infura.io https://cloudflare-ipfs.com https://*.uniswap.org https://api.coingecko.com https://raw.githubusercontent.com https://cloudflare-eth.com https://eth-mainnet.g.alchemy.com https://*.alchemyapi.io https://*.coinbagmacbook.netlify.app;"
     Access-Control-Allow-Origin = "*"
