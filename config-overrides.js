@@ -18,10 +18,6 @@ module.exports = function override(config) {
     new webpack.ProvidePlugin({
       process: 'process/browser',
       Buffer: ['buffer', 'Buffer']
-    }),
-    new webpack.DefinePlugin({
-      'process.env.REACT_APP_ALCHEMY_API_KEY': JSON.stringify(process.env.REACT_APP_ALCHEMY_API_KEY),
-      'process.env.REACT_APP_ALCHEMY_URL': JSON.stringify(process.env.REACT_APP_ALCHEMY_URL),
     })
   ]);
   config.ignoreWarnings = [/Failed to parse source map/];

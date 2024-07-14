@@ -10,6 +10,14 @@ const TokenSelection = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold text-teal-400 mb-6">Select a Token</h2>
+      <div className="mb-6">
+        <Link
+          to="/swap"
+          className="block w-full bg-teal-500 text-white py-3 px-4 rounded-lg text-center font-semibold hover:bg-teal-600 transition-colors"
+        >
+          Swap Tokens
+        </Link>
+      </div>
       <div className="grid gap-4">
         {tokens.map((token) => (
           <Link
