@@ -2,6 +2,7 @@
   "name": "coinbag-terminal",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8545",
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
     "@testing-library/jest-dom": "^5.17.0",
