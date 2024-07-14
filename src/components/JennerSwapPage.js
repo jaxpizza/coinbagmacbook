@@ -3,8 +3,7 @@ import { SwapWidget, Theme } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { AlphaRouter } from '@uniswap/smart-order-router';
-import { Token } from '@uniswap/sdk-core';
-import { ChainId } from '@uniswap/smart-order-router';
+import { Token, ChainId } from '@uniswap/sdk-core';
 
 const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
