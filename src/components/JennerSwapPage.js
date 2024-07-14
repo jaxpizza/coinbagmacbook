@@ -8,15 +8,22 @@ const JENNER_TOKEN_ADDRESS = '0x482702745260ffd69fc19943f70cffe2cacd70e9';
 const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
 const ALCHEMY_URL = process.env.REACT_APP_ALCHEMY_URL;
 
+console.log('ALCHEMY_URL:', ALCHEMY_URL); // Add this line for debugging
+
 const JennerSwapPage = () => {
   const [provider, setProvider] = useState(null);
 
   useEffect(() => {
     const initProvider = async () => {
       if (ALCHEMY_URL) {
-        const newProvider = new JsonRpcProvider(ALCHEMY_URL);
-        await newProvider.ready;
-        setProvider(newProvider);
+        console.log('Initializing provider with URL:', ALCHEMY_URL);
+        try {
+          const newProvider = new JsonRpcProvider(ALCHEMY_URL);
+          await newProvider.ready;
+          setProvider(newProvider);
+        } catch (error) {
+          console.error('Error initializing provider:', error);
+        }
       } else {
         console.error('Alchemy URL is not set');
       }
