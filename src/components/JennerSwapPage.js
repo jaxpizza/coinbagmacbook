@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SwapWidget, Theme } from '@uniswap/widgets';
+import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { AlphaRouter } from '@uniswap/smart-order-router';
@@ -61,6 +61,19 @@ const JennerSwapPage = () => {
     'Wrapped Ether'
   );
 
+  const darkTheme = {
+    primary: '#000000',
+    secondary: '#666666',
+    interactive: '#333333',
+    container: '#222222',
+    module: '#000000',
+    accent: '#71FF98',
+    outline: '#CC1',
+    dialog: '#000000',
+    fontFamily: 'Inter, sans-serif',
+    borderRadius: 0.5,
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900 p-4">
       <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full">
@@ -76,7 +89,7 @@ const JennerSwapPage = () => {
             routerUrl={ALCHEMY_URL} // This enables auto-routing
             router={router} // Pass the AlphaRouter instance
             locale="en-US"
-            theme={Theme.DARK}
+            theme={darkTheme}
           />
         </div>
       </div>
