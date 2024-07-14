@@ -1,48 +1,60 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
-import { JsonRpcProvider } from '@ethersproject/providers';
 
 const ALCHEMY_URL = process.env.REACT_APP_ALCHEMY_URL;
 
-const JennerSwapPage = () => {
-  const [provider, setProvider] = useState(null);
-
-  useEffect(() => {
-    const initProvider = async () => {
-      if (ALCHEMY_URL) {
-        try {
-          const newProvider = new JsonRpcProvider(ALCHEMY_URL);
-          await newProvider.ready;
-          setProvider(newProvider);
-        } catch (error) {
-          console.error('Error initializing provider:', error);
-        }
-      } else {
-        console.error('Alchemy URL is not set');
-      }
-    };
-    initProvider();
-  }, []);
-
-  const handleError = useCallback((error) => {
-    console.error('Swap Widget Error:', error);
-  }, []);
-
-  if (!provider) {
-    return <div className="text-white text-center">Loading Swap Widget...</div>;
+const TOKEN_LIST = [
+  {
+    name: 'Ethereum',
+    address: 'NATIVE',
+    symbol: 'ETH',
+    decimals: 18,
+    chainId: 1,
+    logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png'
+  },
+  {
+    name: 'USD Coin',
+    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    symbol: 'USDC',
+    decimals: 6,
+    chainId: 1,
+    logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png'
+  },
+  {
+    name: 'Jenner Token',
+    address: '0x482702745260ffd69fc19943f70cffe2cacd70e9',
+    symbol: 'JENNER',
+    decimals: 18,
+    chainId: 1,
+    logoURI: 'https://example.com/jenner-logo.png' // Replace with actual logo URL if available
   }
+];
 
+const JennerSwapPage = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900 p-4">
       <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full">
         <h2 className="text-2xl font-semibold text-teal-400 mb-6 text-center">Swap Tokens</h2>
         <div id="swap-widget-container">
           <SwapWidget
-            provider={provider}
             jsonRpcEndpoint={ALCHEMY_URL}
+            tokenList={TOKEN_LIST}
             width="100%"
-            onError={handleError}
+            defaultInputTokenAddress="NATIVE"
+            defaultOutputTokenAddress="0x482702745260ffd69fc19943f70cffe2cacd70e9" // Jenner Token address
+            theme={{
+              primary: '#FFF',
+              secondary: '#A9A9A9',
+              interactive: '#000',
+              container: '#4E4E5A',
+              module: '#222633',
+              accent: '#71FF98',
+              outline: '#CC1',
+              dialog: '#000',
+              fontFamily: 'Inter, sans-serif',
+              borderRadius: 0.5,
+            }}
           />
         </div>
       </div>
