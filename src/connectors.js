@@ -13,6 +13,7 @@ const walletConnect = initializeConnector(
 export const connectors = [metaMask, walletConnect];
 
 export function useActiveProvider() {
-  // This is a simplified version. You might need to implement proper provider selection logic.
-  return window.ethereum;
+  const [, hooks] = metaMask;
+  const { useProvider } = hooks;
+  return useProvider();
 }

@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { useActiveProvider } from '../connectors';
-import Web3Connectors from '../components/Web3Connectors';
+import Web3Connectors from './Web3Connectors';
 
 const JSON_RPC_URL = 'https://cloudflare-eth.com';
 const TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org';
@@ -29,6 +29,18 @@ const SwapPage = () => {
           defaultInputTokenAddress="NATIVE"
           defaultInputAmount="1"
           defaultOutputTokenAddress={UNI}
+          width={360}
+          theme={{
+            primary: '#1fc7d4',
+            secondary: '#666666',
+            interactive: '#eeeeee',
+            container: '#ffffff',
+            module: '#fafafa',
+            accent: '#1fc7d4',
+            outline: '#cccccc',
+            dialog: '#ffffff',
+            fontFamily: 'Inter, sans-serif',
+          }}
         />
       </div>
     </div>
