@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { SwapWidget } from '@uniswap/widgets';
 import '@uniswap/widgets/fonts.css';
 import { useActiveProvider } from '../connectors';
@@ -12,6 +12,10 @@ const SwapPage = () => {
   const connectors = useRef(null);
   const focusConnectors = useCallback(() => connectors.current?.focus(), []);
   const provider = useActiveProvider();
+
+  useEffect(() => {
+    console.log('Provider:', provider);
+  }, [provider]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-4">
@@ -44,7 +48,7 @@ const SwapPage = () => {
             }}
           />
         ) : (
-          <p className="text-gray-800">Please connect your wallet to use the swap widget.</p>
+          <p className="text-gray-800">Please connect your wallet to use the swap widget. Provider: {provider ? 'Available' : 'Not Available'}</p>
         )}
       </div>
     </div>
