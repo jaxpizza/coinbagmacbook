@@ -20,28 +20,32 @@ const SwapPage = () => {
         <Web3Connectors />
       </div>
       <div className="bg-white rounded-lg p-4">
-        <SwapWidget
-          jsonRpcEndpoint={JSON_RPC_URL}
-          tokenList={TOKEN_LIST}
-          provider={provider}
-          locale="en-US"
-          onConnectWallet={focusConnectors}
-          defaultInputTokenAddress="NATIVE"
-          defaultInputAmount="1"
-          defaultOutputTokenAddress={UNI}
-          width={360}
-          theme={{
-            primary: '#1fc7d4',
-            secondary: '#666666',
-            interactive: '#eeeeee',
-            container: '#ffffff',
-            module: '#fafafa',
-            accent: '#1fc7d4',
-            outline: '#cccccc',
-            dialog: '#ffffff',
-            fontFamily: 'Inter, sans-serif',
-          }}
-        />
+        {provider ? (
+          <SwapWidget
+            jsonRpcEndpoint={JSON_RPC_URL}
+            tokenList={TOKEN_LIST}
+            provider={provider}
+            locale="en-US"
+            onConnectWallet={focusConnectors}
+            defaultInputTokenAddress="NATIVE"
+            defaultInputAmount="1"
+            defaultOutputTokenAddress={UNI}
+            width={360}
+            theme={{
+              primary: '#1fc7d4',
+              secondary: '#666666',
+              interactive: '#eeeeee',
+              container: '#ffffff',
+              module: '#fafafa',
+              accent: '#1fc7d4',
+              outline: '#cccccc',
+              dialog: '#ffffff',
+              fontFamily: 'Inter, sans-serif',
+            }}
+          />
+        ) : (
+          <p className="text-gray-800">Please connect your wallet to use the swap widget.</p>
+        )}
       </div>
     </div>
   );

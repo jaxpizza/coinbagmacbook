@@ -9,12 +9,18 @@ const Web3Connectors = () => {
         return (
           <button
             key={index}
-            onClick={() => connector.activate()}
+            onClick={() => {
+              if (isActive) {
+                connector.deactivate();
+              } else {
+                connector.activate();
+              }
+            }}
             className={`px-4 py-2 rounded-md ${
               isActive ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-800'
             }`}
           >
-            {connector.constructor.name}
+            {connector.constructor.name === 'WalletConnect' ? 'WalletConnect' : 'MetaMask'}
           </button>
         );
       })}

@@ -10,7 +10,7 @@
     "@uniswap/widgets": "^2.59.0",
     "@web3-react/core": "^8.2.3",
     "@web3-react/metamask": "^8.2.4",
-    "@web3-react/walletconnect": "^8.2.3",
+    "@web3-react/walletconnect-v2": "^8.5.1",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
