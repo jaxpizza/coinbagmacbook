@@ -7,7 +7,6 @@ const Web3Connectors = () => {
       {connectors.map(([connector, hooks], index) => {
         const isActive = hooks.useIsActive();
         const isActivating = hooks.useIsActivating();
-        const error = hooks.useError();
 
         return (
           <button
@@ -26,7 +25,6 @@ const Web3Connectors = () => {
           >
             {connector.constructor.name === 'WalletConnect' ? 'WalletConnect' : 'MetaMask'}
             {isActivating && ' (connecting...)'}
-            {error && ` (${error.name})`}
           </button>
         );
       })}

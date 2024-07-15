@@ -21,22 +21,11 @@ export function useActiveProvider() {
   const [, metaMaskHooks] = metaMask;
   const [, walletConnectHooks] = walletConnect;
   
-  const { useIsActive: useIsMetaMaskActive, useProvider: useMetaMaskProvider } = metaMaskHooks;
-  const { useIsActive: useIsWalletConnectActive, useProvider: useWalletConnectProvider } = walletConnectHooks;
-
-  const isMetaMaskActive = useIsMetaMaskActive();
-  const isWalletConnectActive = useIsWalletConnectActive();
+  const useMetaMaskProvider = metaMaskHooks.useProvider;
+  const useWalletConnectProvider = walletConnectHooks.useProvider;
 
   const metaMaskProvider = useMetaMaskProvider();
   const walletConnectProvider = useWalletConnectProvider();
 
-  if (isMetaMaskActive && metaMaskProvider) {
-    return metaMaskProvider;
-  }
-
-  if (isWalletConnectActive && walletConnectProvider) {
-    return walletConnectProvider;
-  }
-
-  return null;
+  return metaMaskProvider || walletConnectProvider || null;
 }
