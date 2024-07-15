@@ -1,6 +1,7 @@
 import { initializeConnector } from '@web3-react/core';
 import { MetaMask } from '@web3-react/metamask';
 import { WalletConnect as WalletConnectV2 } from '@web3-react/walletconnect-v2';
+import { Web3Provider } from '@ethersproject/providers';
 
 const metaMask = initializeConnector((actions) => new MetaMask({ actions }));
 
@@ -21,11 +22,14 @@ export function useActiveProvider() {
   const [, metaMaskHooks] = metaMask;
   const [, walletConnectHooks] = walletConnect;
   
-  const useMetaMaskProvider = metaMaskHooks.useProvider;
-  const useWalletConnectProvider = walletConnectHooks.useProvider;
+  const metaMaskProvider = metaMaskHooks.useProvider();
+  const walletConnectProvider = walletConnectHooks.useProvider();
 
-  const metaMaskProvider = useMetaMaskProvider();
-  const walletConnectProvider = useWalletConnectProvider();
+  const activeProvider = metaMaskProvider || walletConnectProvider;
 
-  return metaMaskProvider || walletConnectProvider || null;
+  if (activeProvider) {
+    return new Web3Provider(activeProvider);
+  }
+
+  return null;
 }

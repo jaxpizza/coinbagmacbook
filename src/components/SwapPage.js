@@ -15,6 +15,8 @@ const SwapPage = () => {
 
   useEffect(() => {
     console.log('Provider:', provider);
+    console.log('Provider type:', provider ? typeof provider : 'null');
+    console.log('Provider methods:', provider ? Object.keys(provider) : 'null');
   }, [provider]);
 
   return (
@@ -25,28 +27,31 @@ const SwapPage = () => {
       </div>
       <div className="bg-white rounded-lg p-4">
         {provider ? (
-          <SwapWidget
-            jsonRpcEndpoint={JSON_RPC_URL}
-            tokenList={TOKEN_LIST}
-            provider={provider}
-            locale="en-US"
-            onConnectWallet={focusConnectors}
-            defaultInputTokenAddress="NATIVE"
-            defaultInputAmount="1"
-            defaultOutputTokenAddress={UNI}
-            width={360}
-            theme={{
-              primary: '#1fc7d4',
-              secondary: '#666666',
-              interactive: '#eeeeee',
-              container: '#ffffff',
-              module: '#fafafa',
-              accent: '#1fc7d4',
-              outline: '#cccccc',
-              dialog: '#ffffff',
-              fontFamily: 'Inter, sans-serif',
-            }}
-          />
+          <>
+            <p className="text-gray-800 mb-4">Provider connected. Attempting to render SwapWidget.</p>
+            <SwapWidget
+              jsonRpcEndpoint={JSON_RPC_URL}
+              tokenList={TOKEN_LIST}
+              provider={provider}
+              locale="en-US"
+              onConnectWallet={focusConnectors}
+              defaultInputTokenAddress="NATIVE"
+              defaultInputAmount="1"
+              defaultOutputTokenAddress={UNI}
+              width={360}
+              theme={{
+                primary: '#1fc7d4',
+                secondary: '#666666',
+                interactive: '#eeeeee',
+                container: '#ffffff',
+                module: '#fafafa',
+                accent: '#1fc7d4',
+                outline: '#cccccc',
+                dialog: '#ffffff',
+                fontFamily: 'Inter, sans-serif',
+              }}
+            />
+          </>
         ) : (
           <p className="text-gray-800">Please connect your wallet to use the swap widget. Provider: {provider ? 'Available' : 'Not Available'}</p>
         )}
